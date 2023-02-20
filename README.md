@@ -15,7 +15,7 @@ The project will be cross compiled and can be run on the
 ## Why?
 
 The purpose is to demonstrate how can Vcpkg be used with the Buildroot Bouffalo SDK
-to create an application. With Vcpkg we have access to potential +2000 C & C++ libraries.
+to create an application. With Vcpkg we have access to potential of +2000 C & C++ libraries.
 
 ## How?
 
@@ -25,7 +25,7 @@ We have to provide `CMAKE_TOOLCHAIN_FILE` CMake variable during configuration wi
 must be set from the custom triplet `cmake/triplets/x64-linux-boufallo.cmake` located
 in this project.
 
-With this, we can include almost any Vcpkg library and compile it for the Buildroot Bouffalo Linux.
+With this, we can include almost any Vcpkg library, and compile it for the Buildroot Bouffalo Linux.
 All of the hard work is done by the Vcpkg.
 
 ## Tutorial
@@ -75,7 +75,7 @@ tar -xvzf riscv64-buildroot-linux-gnu_sdk-buildroot.tar.gz
 sudo mv ./riscv64-buildroot-linux-gnu_sdk-buildroot /opt/
 ```
 
-No need to call `environment-setup` or `relocate-sdk.sh`. It is not necessary for this project.
+No need to call the `environment-setup` or the `relocate-sdk.sh`. It is not necessary for this project.
 
 ### 4. Configure the project
 
@@ -92,8 +92,9 @@ Create a CMake build directory.
 mkdir build
 ```
 
-Configure the project. You must set `CMAKE_TOOLCHAIN_FILE` to the correct Vcpkg toolchain, as per Vcpkg documentation.
-You must also set `VCPKG_CHAINLOAD_TOOLCHAIN_FILE`, which must match `cmake/triplets/x64-linux-boufallo.cmake`.
+Configure the project. You must set `CMAKE_TOOLCHAIN_FILE` to the correct Vcpkg toolchain, 
+as per Vcpkg documentation. You must also set `VCPKG_CHAINLOAD_TOOLCHAIN_FILE`, which must
+match `cmake/triplets/x64-linux-boufallo.cmake`.
 
 ```bash
 cmake -B ./build \
@@ -101,8 +102,9 @@ cmake -B ./build \
     -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/opt/riscv64-buildroot-linux-gnu_sdk-buildroot/share/buildroot/toolchainfile.cmake
 ```
 
-**Note:** This will start downloading CLI11 and spdlog C++ dependencies. They are used only for demonstration purposes.
-Depending on your hardware and internet speed this may take a minute or two.
+**Note:** This will start downloading CLI11 and spdlog C++ dependencies. They are used only
+for the demonstration purposes. Depending on your hardware, and internet speed, this may take
+a minute or two.
 
 Once configured you should see something like this:
 
@@ -115,7 +117,7 @@ Once configured you should see something like this:
 -- Check for working C compiler: /opt/riscv64-buildroot-linux-gnu_sdk-buildroot/bin/riscv64-unknown-linux-gnu-gcc - skipped
 ```
 
-Make sure the compiler is correct. Don't worry it has been skipped!
+Make sure the compiler is correct. Don't worry that it has been skipped!
 
 ### 5. Compile
 
@@ -158,8 +160,9 @@ So far it looks like yes. There might be some features disabled, so far I haven'
 
 ### Error Relocations in generic ELF (EM: 243)
 
-Make sure you have set `-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/opt/riscv64-buildroot-linux-gnu_sdk-buildroot/share/buildroot/toolchainfile.cmake` when you are configuring the project with CMake.
-This toolchain file must also match the one in the `cmake/triplets/x64-linux-boufallo.cmake` file.
+Make sure you have set `-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/opt/riscv64-buildroot-linux-gnu_sdk-buildroot/share/buildroot/toolchainfile.cmake`
+when you are configuring the project with CMake. This toolchain file must also match the
+one in the `cmake/triplets/x64-linux-boufallo.cmake` file.
 
 If it still does not work, remove the `build` folder and try again. Sometimes the CMake variables
 can be cached.
