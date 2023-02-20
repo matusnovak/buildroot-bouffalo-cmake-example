@@ -20,13 +20,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential tar curl zip unzip cmake git wget
 
-      - name: Install Vcpkg
-        run: |
-          sudo rm -rf /opt/vcpkg
-          git clone https://github.com/microsoft/vcpkg.git
-          sudo mv ./vcpkg /opt/vcpkg
-          /opt/vcpkg/bootstrap-vcpkg.sh
-          sudo ln -s /opt/vcpkg/vcpkg /usr/local/bin/vcpkg
+      # GH actions ubuntu-latest already contains vcpkg
+      # Might be slightly oudated but we do not care
+      # You should use https://github.com/marketplace/actions/run-vcpkg
 
       - name: Install Buildroot Bouffalo SDK
         run: |
