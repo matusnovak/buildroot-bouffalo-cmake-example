@@ -1,5 +1,7 @@
 # Buildroot Bouffalo CMake example
 
+[![build](https://github.com/matusnovak/buildroot-bouffalo-cmake-example/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/matusnovak/buildroot-bouffalo-cmake-example/actions/workflows/build.yml)
+
 This is an example project that uses CMake and [Vcpkg package manager](https://github.com/microsoft/vcpkg)
 to compile a simple example C++ project, as an example for the 
 [Ox64 RISC-V single board computer](https://wiki.pine64.org/wiki/Ox64).
