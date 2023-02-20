@@ -1,0 +1,50 @@
+name: build
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential tar curl zip unzip cmake git wget
+
+      - name: Install Vcpkg
+        run: |
+          sudo rm -rf /opt/vcpkg
+          git clone https://github.com/microsoft/vcpkg.git
+          sudo mv ./vcpkg /opt/vcpkg
+          /opt/vcpkg/bootstrap-vcpkg.sh
+          sudo ln -s /opt/vcpkg/vcpkg /usr/local/bin/vcpkg
+
+      - name: Install Buildroot Bouffalo SDK
+        run: |
+          wget https://github.com/openbouffalo/buildroot_bouffalo/releases/download/v0.0.5/riscv64-buildroot-linux-gnu_sdk-buildroot.tar.gz
+          tar -xvzf ./riscv64-buildroot-linux-gnu_sdk-buildroot.tar.gz
+          sudo mv ./riscv64-buildroot-linux-gnu_sdk-buildroot /opt/
+
+      - name: Configure
+        run: |
+          mkdir build
+          cmake -B ./build \
+            -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake \
+            -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/opt/riscv64-buildroot-linux-gnu_sdk-buildroot/share/buildroot/toolchainfile.cmake
+
+      - name: Build
+        run: |
+          cmake --build ./build --target all
+
+      - name: Sanity Check
+        run: |
+          file ./build/example

@@ -52,8 +52,7 @@ cd ~
 git clone https://github.com/microsoft/vcpkg
 sudo mv ./vcpkg /opt/vcpkg
 
-cd /opt/vcpkg
-./vcpkg/bootstrap-vcpkg.sh
+/opt/vcpkg/bootstrap-vcpkg.sh
 
 sudo ln -s /opt/vcpkg/vcpkg /usr/local/bin/vcpkg
 ```
